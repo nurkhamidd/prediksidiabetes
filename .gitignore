@@ -1,0 +1,4 @@
+*.ipynb
+*.csv
+*.sav
+__pycache__/
