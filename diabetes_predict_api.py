@@ -1,10 +1,11 @@
 from fastapi import FastAPI, Form
 from fastapi.responses import HTMLResponse
 import pickle
+import joblib
 import numpy as np
 
 # Load the model
-diabetes_model = pickle.load(open('diabetes_model_fixed.sav', 'rb'))
+diabetes_model = pickle.load(open('diabetes_model_fixed.joblib', 'rb'))
 
 app = FastAPI()
 
