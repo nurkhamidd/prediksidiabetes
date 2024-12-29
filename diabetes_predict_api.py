@@ -9,17 +9,29 @@ app = Flask(__name__)
 
 # Function to download and extract model from Google Drive
 def download_and_load_model():
-    file_url = "https://drive.google.com/uc?id=16NGlvsASG2atOC2QfRui4bo068Jo190G"  # Google Drive file ID
+    file_url = "https://drive.google.com/uc?id=16NGlvsASG2atOC2QfRui4bo068Jo190G"
     model_path = "diabetes_model_fixed.joblib"
 
-    # Download the model
-    response = requests.get(file_url, stream=True)
-    with open(model_path, "wb") as file:
-        shutil.copyfileobj(response.raw, file)
-    print("Model has been downloaded")
+    try:
+        # Log saat mulai mengunduh
+        print("Starting to download the model...")
+        response = requests.get(file_url, stream=True)
 
-    # Load the model
-    return joblib.load(model_path)
+        # Simpan file ke sistem
+        with open(model_path, "wb") as file:
+            shutil.copyfileobj(response.raw, file)
+        print("Model has been downloaded successfully.")
+
+        # Log saat mulai memuat model
+        print("Loading the model...")
+        loaded_model = joblib.load(model_path)
+        print("Model loaded successfully.")
+        return loaded_model
+
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        raise e
+
 
 # Load the model
 model = download_and_load_model()
